@@ -1,3 +1,5 @@
+# finds documents that contains all the words in the query using an inverted index
+
 def boolean_retrieval(query, inverted_index):
     words = query.lower().split()
     if not words:

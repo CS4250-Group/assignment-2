@@ -22,11 +22,13 @@ def main():
 
     query = input("Enter search query: ")
 
+    # loop and print each result from boolean retrieval
     print("\n--- Boolean Retrieval ---")
     boolean_results = boolean_retrieval(query, inverted_index)
     for url in boolean_results:
         print(url)
 
+    # loop and print the top 10 combined search results with scores 
     print("\n--- Combined Vector + PageRank ---")
     combined_results = combined_search(query, vector_model, pagerank_scores)
     for url, score in combined_results[:10]:
