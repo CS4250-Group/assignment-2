@@ -21,6 +21,21 @@ def main():
     print("[4] Computing PageRank...")
     pagerank_scores = compute_pagerank(links)
 
+    # get top 100 pages by PageRank
+    top_100 = sorted(pagerank_scores.items(), key=lambda x: -x[1])[:100]
+
+    # print top 100 to console
+    print("\n--- Top 100 Pages by PageRank ---")
+    for url, score in top_100:
+        print(f"{url} (PageRank: {score:.6f})")
+
+    # save top 100 to csv
+    with open("top_1001.csv", mode="w", newline="", encoding="utf-8") as file:
+        writer = csv.writer(file)
+        writer.writerow(["Rank", "URL", "PageRank Score"])
+        for i, (url, score) in enumerate(top_100, 1):
+            writer.writerow([i, url, round(score, 6)])
+
     query = input("Enter search query: ")
 
     # loop and print each result from boolean retrieval
@@ -34,21 +49,6 @@ def main():
     combined_results = combined_search(query, vector_model, pagerank_scores)
     for url, score in combined_results[:10]:
         print(f"{url} (score: {score:.4f})")
-
-    # get top 100 pages by PageRank
-    top_100 = sorted(pagerank_scores.items(), key=lambda x: -x[1])[:100]
-
-    # print top 100 to console
-    print("\n--- Top 100 Pages by PageRank ---")
-    for url, score in top_100:
-        print(f"{url} (PageRank: {score:.6f})")
-
-    # save top 100 to csv
-    with open("top_100_pagerank.csv", mode="w", newline="", encoding="utf-8") as file:
-        writer = csv.writer(file)
-        writer.writerow(["Rank", "URL", "PageRank Score"])
-        for i, (url, score) in enumerate(top_100, 1):
-            writer.writerow([i, url, round(score, 6)])
 
 if __name__ == "__main__":
     main()
