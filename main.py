@@ -44,6 +44,11 @@ def main():
     for url in boolean_results:
         print(url)
 
+    print("\n--- Vector Search ---")
+    vector_results = vector_model.search(query)
+    for url, score in vector_results[:10]:
+        print(f"{url} (score: {score:.4f})")
+
     # loop and print the top 10 combined search results with scores 
     print("\n--- Combined Vector + PageRank ---")
     combined_results = combined_search(query, vector_model, pagerank_scores)
